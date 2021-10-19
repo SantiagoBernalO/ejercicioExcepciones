@@ -5,15 +5,9 @@
  */
 package com.unicundi.proyectoplantillas.exception;
 
-import java.nio.file.Paths;
 import java.util.EmptyStackException;
-import javax.el.PropertyNotFoundException;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAllowedException;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -32,7 +26,6 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
         ex.printStackTrace();
         ExcepionWrraper wrraper;
 
-        System.out.println(ex);
         String[] error;
         if (ex instanceof NotAllowedException) {
             wrraper = new ExcepionWrraper("405", "METHOD_NOT_ALLOWED", "Metodo no reconocido",

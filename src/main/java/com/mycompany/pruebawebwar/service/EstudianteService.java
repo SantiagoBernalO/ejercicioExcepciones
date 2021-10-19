@@ -109,33 +109,47 @@ public class EstudianteService {
      * @throws ArrayIndexOutOfBoundsException, BussinessException
      */
     public void editar(ArrayList<Usuario> LUsuario, Usuario estudiante) {
-        boolean bandera = false;
+         boolean bandera = false;
         try {
-            if (LUsuario.isEmpty()) {
-                throw new EmptyStackException();//204 NO CONTENT
+
+            HashMap<String, String> errors = new HashMap();
+
+            for (ConstraintViolation errorss : estudiante.validar()) {
+                errors.put(errorss.getPropertyPath().toString(), errorss.getMessage());
+            }
+
+            if (errors.size() > 0) {
+                throw new IllegalArgumentException(errors.toString());//400
+
             } else {
-                for (Usuario LU : LUsuario) {
-                    if (LU.getId().equals(estudiante.getId())) {
-                        bandera = false;
-                        if (LU.getCedula().equals(estudiante.getCedula())) {
-                            int indice = LUsuario.indexOf(LU);
-                            LUsuario.set(indice, estudiante);
-                            break;
+
+                if (LUsuario.isEmpty()) {
+                    throw new EmptyStackException();//204 NO CONTENT
+                } else {
+                    for (Usuario LU : LUsuario) {
+                        if (LU.getId().equals(estudiante.getId())) {
+                            bandera = false;
+                            if (LU.getCedula().equals(estudiante.getCedula())) {
+                                int indice = LUsuario.indexOf(LU);
+                                LUsuario.set(indice, estudiante);
+                                break;
+                            } else {
+                                throw new RuntimeException("No se puede modificar la cedula");//409 CONFLICT
+                            }
                         } else {
-                            throw new RuntimeException("No se puede modificar la cedula");//409 CONFLICT
+                            bandera = true;
                         }
-                    } else {
-                        bandera = true;
                     }
-                }
-                if (bandera == true) {
-                    throw new NullPointerException("No existe este identificador");//404 not found
+                    if (bandera == true) {
+                        throw new NullPointerException("No existe este identificador");//404 not found
+                    }
                 }
             }
 
         } catch (NullPointerException | IllegalArgumentException e) {
             throw e;
         }
+
 
     }
 
