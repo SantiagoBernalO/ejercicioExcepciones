@@ -38,16 +38,16 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
         } else if (ex instanceof IllegalArgumentException) {
             wrraper = new ExcepionWrraper("400", "BAD_REQUEST", ex.getMessage(),
-            "estudiantes/");
+                    "estudiantes/");
             return Response.status(Response.Status.BAD_REQUEST).entity(wrraper).build();
-        } else if (ex instanceof RuntimeException) {
-            wrraper = new ExcepionWrraper("409", "CONFLICT", ex.getMessage(),
-                    "/estudiantes");
-            return Response.status(Response.Status.CONFLICT).entity(wrraper).build();
         } else if (ex instanceof NullPointerException) {
             wrraper = new ExcepionWrraper("404", "NOT_FOUND", ex.getMessage(),
                     "/estudiantes");
             return Response.status(Response.Status.NOT_FOUND).entity(wrraper).build();
+        } else if (ex instanceof RuntimeException) {
+            wrraper = new ExcepionWrraper("409", "CONFLICT", ex.getMessage(),
+                    "/estudiantes");
+            return Response.status(Response.Status.CONFLICT).entity(wrraper).build();
 
         } else {
             wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
