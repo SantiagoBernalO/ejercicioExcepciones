@@ -42,10 +42,10 @@ public class Usuario implements Serializable {
     @Size(min = 6, max = 10, message = "Ingrese valores de entre 6 y 10 caracteres")
     private String contrasena;
 
-    @NotNull(message = "Es necesario ingresar un correo")
+    /*@NotNull(message = "Es necesario ingresar un correo")
     @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",
             message = "Es necesario que el correo contenga el siguiente formato xxxx@correo.xxx")
-    /*private String correo;
+    private String correo;
     @Size(min = 9, max = 10)
     private String celular;
     @NotNull(message = "Es necesario ingresar la fecha de nacimiento para verificar tu edad")
