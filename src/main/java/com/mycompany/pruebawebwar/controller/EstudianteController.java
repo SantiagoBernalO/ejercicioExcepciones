@@ -110,7 +110,7 @@ public class EstudianteController {
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editar(@Valid Usuario estudiante) {
+    public Response editar(Usuario estudiante) {
         EstudianteService s = new EstudianteService();
         s.editar(LUsuario, estudiante);
         return Response.status(Response.Status.OK).build();
