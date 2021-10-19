@@ -21,7 +21,7 @@ import javax.ws.rs.ext.Provider;
 
 /**
  *
- * @author ASUS
+ * @author Andres Bernal, David Quintero
  */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,18 +34,6 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
         System.out.println(ex);
         String[] error;
-        /*String errorNumero;
-        String errorTipo ="";
-        String[] error; 
-        error = ex.getMessage().split(" ");
-        for (int i = 0; i < error.length; i++) {
-            if(i==1){
-                errorNumero=error[i];
-            }else if(i>1){
-                errorTipo +=errorTipo +error[i];
-            }
-        }*/
-        
         if (ex instanceof NotAllowedException) {
             wrraper = new ExcepionWrraper("405", "METHOD_NOT_ALLOWED", "Metodo no reconocido",
                     "estudiantes/");

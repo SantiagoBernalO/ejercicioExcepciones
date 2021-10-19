@@ -13,7 +13,7 @@ import javax.validation.ConstraintViolation;
 
 /**
  *
- * @author ASUS
+ * @author Andres Bernal, David Quintero
  */
 public class EstudianteService {
 
