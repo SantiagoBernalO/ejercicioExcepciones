@@ -70,7 +70,7 @@ public class EstudianteController {
     @POST
     @Path("/insertar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertar(@Valid Usuario estudiante) throws Exception {
+    public Response insertar(Usuario estudiante) throws Exception {
         EstudianteService s = new EstudianteService();
         s.insertar(LUsuario, estudiante);
         return Response.status(Response.Status.OK).build();

@@ -5,11 +5,13 @@
  */
 package com.unicundi.proyectoplantillas.exception;
 
+import java.nio.file.Paths;
 import java.util.EmptyStackException;
 import javax.el.PropertyNotFoundException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -31,7 +33,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
         ExcepionWrraper wrraper;
 
         System.out.println(ex);
-
+        String[] error;
         /*String errorNumero;
         String errorTipo ="";
         String[] error; 
@@ -43,30 +45,32 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
                 errorTipo +=errorTipo +error[i];
             }
         }*/
+        
         if (ex instanceof NotAllowedException) {
             wrraper = new ExcepionWrraper("405", "METHOD_NOT_ALLOWED", "Metodo no reconocido",
-                    "xxxx");
+                    "estudiantes/");
             return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity(wrraper).build();
         } else if (ex instanceof EmptyStackException) {
             wrraper = new ExcepionWrraper("204", "NO_CONTENT", "No existe contenido",
-                    "xxxx");
+                    "estudiantes/");
             return Response.status(Response.Status.NO_CONTENT).entity(wrraper).build();
 
         } else if (ex instanceof IllegalArgumentException) {
-            System.out.println(ex.getMessage());
-            
+            wrraper = new ExcepionWrraper("400", "BAD_REQUEST", ex.getMessage(),
+            "estudiantes/");
+            return Response.status(Response.Status.BAD_REQUEST).entity(wrraper).build();
+        } else if (ex instanceof RuntimeException) {
             wrraper = new ExcepionWrraper("409", "CONFLICT", ex.getMessage(),
-                    "/estudiantes/obtener");
+                    "/estudiantes");
             return Response.status(Response.Status.CONFLICT).entity(wrraper).build();
-
         } else if (ex instanceof NullPointerException) {
             wrraper = new ExcepionWrraper("404", "NOT_FOUND", ex.getMessage(),
-                    "/estudiantes/obtener");
+                    "/estudiantes");
             return Response.status(Response.Status.NOT_FOUND).entity(wrraper).build();
 
         } else {
             wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
-                    "/estudiantes/obtener");
+                    "/estudiantes");
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(wrraper).build();
         }
     }

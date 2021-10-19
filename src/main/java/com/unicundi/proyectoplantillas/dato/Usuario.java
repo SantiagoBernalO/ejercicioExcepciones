@@ -18,28 +18,28 @@ import javax.validation.ValidatorFactory;
 import javax.validation.constraints.*;
 
 /**
- * Dto para envio .....
+ * 
  *
  * @author ASUS
  */
 public class Usuario implements Serializable {
 
     @NotNull(message = "Error con el id")
-    @Size(min = 1, max = 3)
+    @Size(min = 1, max = 3, message = "Ingrese valores de entre 1 y 3 caracteres")
     private String id;
     @NotNull(message = "Es necesario ingresar un nombre")
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 10, message = "Ingrese valores de entre 3 y 10 caracteres")
     private String nombre;
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 10, message = "Ingrese valores de entre 3 y 10 caracteres")
     private String nombreSecundario;
     @NotNull(message = "Es necesario ingresar un apellido")
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 10, message = "Ingrese valores de entre 3 y 10 caracteres")
     private String apellido;
     @NotNull(message = "Es necesario ingresar la cedula")
-    @Size(min = 5, max = 10)
+    @Size(min = 5, max = 10, message = "Ingrese valores de entre 5 y 10 caracteres")
     private String cedula;
     @NotNull(message = "Es necesario ingresar una contraseña")
-    @Size(min = 6, max = 10)
+    @Size(min = 6, max = 10, message = "Ingrese valores de entre 6 y 10 caracteres")
     private String contrasena;
 
     @NotNull(message = "Es necesario ingresar un correo")

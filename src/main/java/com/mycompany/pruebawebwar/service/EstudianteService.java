@@ -40,18 +40,18 @@ public class EstudianteService {
     public void insertar(ArrayList<Usuario> LUsuario, Usuario estudiante) {
         Boolean existencia = true;
 
-        HashMap<String, String> errores = new HashMap();
+        try {
 
-        for (ConstraintViolation error : estudiante.validar()) {
-            errores.put(error.getPropertyPath().toString(), error.getMessage());
-        }
+            HashMap<String, String> errores = new HashMap();
 
-        if (errores.size() > 0) {
-            throw new IllegalArgumentException(errores.toString());
+            for (ConstraintViolation error : estudiante.validar()) {
+                errores.put(error.getPropertyPath().toString(), error.getMessage());
+            }
 
-        } else {
+            if (errores.size() > 0) {
+                throw new IllegalArgumentException(errores.toString());//400
 
-            try {
+            } else {
                 if (LUsuario.isEmpty()) {
                     existencia = false;
                 } else {
@@ -65,19 +65,21 @@ public class EstudianteService {
                 }
 
                 if (existencia == true) {
-                    throw new IllegalArgumentException("Esta cedula ya existe");//409 CONFLICT
+                    throw new RuntimeException("Esta cedula ya existe");//409 CONFLICT
                 } else if (existencia == false) {
                     LUsuario.add(estudiante);
                 }
-            } catch (IllegalArgumentException ex) {
-                throw ex;
             }
+
+        } catch (IllegalArgumentException ex) {
+            throw ex;
         }
     }
-        /**
-         *
-         * @throws ArrayIndexOutOfBoundsException, BussinessException
-         */
+
+    /**
+     *
+     * @throws ArrayIndexOutOfBoundsException, BussinessException
+     */
     public Usuario obtenerPorId(ArrayList<Usuario> LUsuario, String id) {
 
         Usuario U = new Usuario();
@@ -120,7 +122,7 @@ public class EstudianteService {
                             LUsuario.set(indice, estudiante);
                             break;
                         } else {
-                            throw new IllegalArgumentException("No se puede modificar la cedula");//409 CONFLICT
+                            throw new RuntimeException("No se puede modificar la cedula");//409 CONFLICT
                         }
                     } else {
                         bandera = true;
@@ -147,7 +149,7 @@ public class EstudianteService {
             throw new EmptyStackException();//204 NO CONTENT
         } else {
             try {
-                
+
                 for (Usuario LU : LUsuario) {
                     if (LU.getId().equals(id)) {
                         bandera = false;
